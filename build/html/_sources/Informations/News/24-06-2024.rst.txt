@@ -1,8 +1,0 @@
-20240624
-========
-
-Contenu.
-
-.. feed-entry::
-    :date: 2024-06-24
-    :author: Charlotte
