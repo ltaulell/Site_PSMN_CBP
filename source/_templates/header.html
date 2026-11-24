@@ -6,12 +6,29 @@
                 <img id="logo_cbp_dark" class="img-fluid" src="{{ pathto('_static/header/cbpsmn_logo_dark.png', 1) }}" alt="logo CBPsmn">
             </a>
         </div>
-        <div class="wid-header">
+        <div class="wid-header titre-developpe">
+
+
+            
+            {#
             <button class="btn-theme" id="theme"></button>
+
+
             <a href="https://www.ens-lyon.fr/">
                 <img id="logo_ens_light" class="img-fluid" src="{{ pathto('_static/header/Logo_ENS_Lyon.png', 1) }}" alt="logo ENS de Lyon">
                 <img id="logo_ens_dark" class="img-fluid" src="{{ pathto('_static/header/Logo_ENS_Lyon_dark.png', 1) }}" alt="logo ENS de Lyon">
             </a>
+            #}
+
+            <a href="{{ pathto('index') }}" id="titre-site">
+                Centre Blaise PASCAL <span class="couleur-dominante">de simulation et de modélisation numérique</span>
+            </a>
+
+            {%- block sidebarsearch %}
+            <div class="recherche-header">
+                {%- include "searchbox.html" %}
+            </div>
+            {%- endblock %}
         </div>
     </div>
     
@@ -178,7 +195,7 @@
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Contacts</a>
                         <div class="dropdown-menu">
                             <ul>
-                                <li><a class="dropdown-item" href="{{ pathto('Contacts/Acces') }} ">Accès aux sites</a></li>
+                                <li><a class="dropdown-item" href="{{ pathto('Contacts/Acces') }}">Accès aux sites</a></li>
                                 <li><a class="dropdown-item" href="{{ pathto('Contacts/Equipe') }}">Équipe / Staff</a></li>                                        
                                 <li><a class="dropdown-item" href="{{ pathto('Contacts/Calendrier') }}">Calendrier de la salle TP</a></li>
                                 <li><a class="dropdown-item" href="{{ pathto('Contacts/Formulaires') }}">Formulaires</a></li>
@@ -187,13 +204,24 @@
                     </li>  
                 </ul>
             </div>
-
-            {%- block sidebarsearch %}
-            <div class="container w-25">
-                {%- include "searchbox.html" %}
-            </div>
-            {%- endblock %}
-
         </div>
     </nav>
+
+    {# Zone hero : affichée uniquement sur la page d'accueil (index.rst) #}
+    {%- if pagename == "index" %}
+    <section class="hero">
+        <div class="hero-contenu">
+            <h2 class="hero-titre">Le calcul haute performance <span class="couleur-dominante">au service de la recherche</span></h2>
+            <p class="hero-texte">Le PSMN est la plate-forme scientifique de l'ENS de Lyon hébergeant les ressources en calcul haute performance.</p>
+            <a class="hero-bouton" href="{{ pathto('Accueil/Actualites') }}">Voir les actualités</a>
+        </div>
+
+        <div id="logo-bandeau">
+
+          <a href="https://www.ens-lyon.fr/">
+            <img src="{{ pathto('_static/interface/logo-ens.png', 1) }}" alt="Accéder au site de l'ENS de Lyon">
+          </a>
+        </div>
+    </section>
+    {%- endif %}
 </header>

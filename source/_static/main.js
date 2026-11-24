@@ -202,58 +202,42 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-/* Gestion du mode sombre */
+/* Gestion du mode sombre
+   Tolérant : le bouton #theme et les logos (CBP / ENS) sont facultatifs.
+   S'ils sont absents du header, le mode enregistré est quand même appliqué. */
 
 document.addEventListener("DOMContentLoaded", (event) => {
     const toggleButton = document.querySelector("#theme");
-    
-    const logo_cbp_light = document.querySelector("#logo_cbp_light");
-    const logo_cbp_dark = document.querySelector("#logo_cbp_dark");
-    const logo_ens_light = document.querySelector("#logo_ens_light");
-    const logo_ens_dark = document.querySelector("#logo_ens_dark");
 
-    const currentMode = localStorage.getItem("dark") || "light";
-    document.body.classList.add(currentMode);
+    const logos = {
+        light: document.querySelectorAll("#logo_cbp_light, #logo_ens_light"),
+        dark: document.querySelectorAll("#logo_cbp_dark, #logo_ens_dark"),
+    };
 
-    if (document.body.classList.contains("light")) {
-        logo_cbp_light.style.display = "block";
-        logo_cbp_dark.style.display = "none";
-        logo_ens_light.style.display = "block";
-        logo_ens_dark.style.display = "none";
-        toggleButton.innerHTML = "&#9789";
-        toggleButton.style.paddingLeft = "8px";
-    } else{
-        logo_cbp_light.style.display = "none";
-        logo_cbp_dark.style.display = "block";
-        logo_ens_light.style.display = "none";
-        logo_ens_dark.style.display = "block";
-        toggleButton.innerHTML = "&#9788";
-        toggleButton.style.paddingLeft = "3px";
+    function appliquerMode(mode) {
+        const sombre = mode === "dark";
+
+        document.body.classList.toggle("dark", sombre);
+        document.body.classList.toggle("light", !sombre);
+
+        logos.light.forEach((logo) => { logo.style.display = sombre ? "none" : "block"; });
+        logos.dark.forEach((logo) => { logo.style.display = sombre ? "block" : "none"; });
+
+        if (toggleButton) {
+            toggleButton.innerHTML = sombre ? "&#9788" : "&#9789";
+            toggleButton.style.paddingLeft = sombre ? "3px" : "8px";
+        }
     }
 
-    toggleButton.addEventListener("click", () => {
-        if (document.body.classList.contains("dark")) {
-            document.body.classList.remove("dark");
-            document.body.classList.add("light");
-            localStorage.setItem("dark", "light");
-            toggleButton.innerHTML = "&#9789";
-            toggleButton.style.paddingLeft = "8px";
-            logo_cbp_light.style.display = "block";
-            logo_cbp_dark.style.display = "none";
-            logo_ens_light.style.display = "block";
-            logo_ens_dark.style.display = "none";
-        } else {
-            document.body.classList.remove("light");
-            document.body.classList.add("dark");
-            localStorage.setItem("dark", "dark");
-            toggleButton.innerHTML = "&#9788";
-            toggleButton.style.paddingLeft = "3px";
-            logo_cbp_light.style.display = "none";
-            logo_cbp_dark.style.display = "block";
-            logo_ens_light.style.display = "none";
-            logo_ens_dark.style.display = "block";
-        }
-    });
+    appliquerMode(localStorage.getItem("dark") || "light");
+
+    if (toggleButton) {
+        toggleButton.addEventListener("click", () => {
+            const nouveauMode = document.body.classList.contains("dark") ? "light" : "dark";
+            localStorage.setItem("dark", nouveauMode);
+            appliquerMode(nouveauMode);
+        });
+    }
 });
 
 /* Pour que les sous-menus puissent s'ouvrir en cliquant */

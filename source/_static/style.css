@@ -1,5 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 
+@font-face {
+    font-family: "bebas_neue";
+    font-style: normal;
+    font-weight: normal;
+    src: url("fonts/bebasneue-webfont.eot?#iefix") format("embedded-opentype"),
+         url("fonts/bebasneue-webfont.woff") format("woff"),
+         url("fonts/bebasneue-webfont.ttf") format("truetype"),
+         url("fonts/bebasneue-webfont.svg#bebas_neue") format("svg");
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -41,9 +51,9 @@ body{
 }
 
 .orange-border {
-    background-color: #E69645;
+    background: url(interface/onglet.png) no-repeat scroll left bottom / 100% auto #E69645;
     height: 100%;
-    width: 30px; 
+    width: 40px; 
     position: fixed;
     top: 0;
     left: 0;
@@ -51,6 +61,7 @@ body{
 }
 
 .orange-border.right {
+    background: url(interface/trame.jpg) repeat-y;
     left: auto;
     right: 0;
 }
@@ -104,6 +115,10 @@ body{
     }
     .wid-header{
         width: 25%;
+    }
+
+    .wid-header.titre-developpe {
+        width: 70%;
     }
 }
 .wid-header a{
@@ -219,17 +234,16 @@ a:hover{
     .orange-border{
         display: none;
     }
-    footer{
-        width: 100%;
-    }
 }
 
 /*---------- Titre ----------*/
 
-h1{
-    font-size: 1.7rem;
-    text-decoration: underline; 
+h1, #titre-site {
+    font-size: 2rem;
     margin-bottom: 1rem !important;
+font-family: "bebas_neue", arial, sans-serif;
+    font-weight: normal;
+    letter-spacing: 0.05em;
 }
 
 h2{
@@ -265,6 +279,27 @@ h5{
     text-decoration: underline;
     margin-left: 25px;
 }
+
+#titre-site {
+    color: #000;
+    text-decoration: none;
+    text-align: right;
+}
+
+.couleur-dominante {
+    color:  #E69645;
+}
+
+.titre-developpe{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;   
+}
+
+#accueil h1 {
+    display: none;
+}
+
 
 /*---------- Tableau ----------*/
 
@@ -463,10 +498,6 @@ a.headerlink{
     padding: 0.7rem;
 }
 
-.border-top{
-    border-top: 2px solid var(--text) !important;
-}
-
 ul p{
     margin-bottom: 0.3rem;
 }
@@ -476,12 +507,281 @@ ol{
 }
 
 footer{
-    border: 1px solid #FFF;
+    background: #000 !important;
     text-align: center; 
+    margin-bottom: 20px;
+    padding: 20px 0;
 }
 
-@media screen and (min-width: 576px){
-    footer{
-        width: 85%;
+
+
+/*---------- Menu ----------*/
+
+#menu{
+    --menu-text: #666666;
+    --menu-text-active: #000000;
+    --menu-border: #808080;
+    --menu-bar: #BBBBBB;
+    --menu-accent: #E69645;
+    --menu-bg: var(--bg, #FFFFFF);
+}
+
+body.dark #menu{
+    --menu-text: #BBBBBB;
+    --menu-text-active: #FFFFFF;
+    --menu-border: #8F8F8F;
+    --menu-bar: #6C6C6C;
+}
+
+#menu .nav-link, #menu .dropdown-item{
+    font-family: Arial, sans-serif;
+    color: var(--menu-text);
+    text-decoration: none;
+}
+
+#menu > .nav-item > .nav-link{
+    padding: 10px 10px;
+    font-size: 14px;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+#menu .dropdown-menu ul, #menu .dropdown-menu li{
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+#menu .dropdown-item{
+    list-style: none;
+    padding: 8px 10px;
+    font-size: 14px;
+    font-weight: normal;
+    background: transparent;
+}
+
+#menu .nav-item:hover > .nav-link,
+#menu .nav-link.show,
+#menu .nav-item.active > .nav-link,
+#menu .nav-link.active,
+#menu li:hover > .dropdown-item,
+#menu .dropdown-item:focus,
+#menu .dropdown-item.active,
+#menu li.active > .dropdown-item{
+    color: var(--menu-text-active);
+    background: transparent;
+    text-decoration: none;
+}
+
+#menu .nav-link:focus-visible, #menu .dropdown-item:focus-visible{
+    outline: 2px solid var(--menu-accent);
+    outline-offset: -2px;
+}
+
+@media screen and (min-width: 992px){
+    #menu > .nav-item{
+        position: relative;
+        z-index: 1;
+        border: 1px solid transparent;
+        border-bottom: 0;
+    }
+    #menu > .nav-item.dropdown:hover,
+    #menu > .nav-item.dropdown:has(> .nav-link.show){
+        z-index: 3;
+        background-color: var(--menu-bg);
+        border-color: var(--menu-border);
+    }
+    #menu > .nav-item > .nav-link{
+        position: relative;
+        z-index: 2;
+    }
+    #menu > .nav-item > .nav-link::before{
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(to right, transparent 30%, var(--menu-bar) 30%, var(--menu-bar) 70%, transparent 70%);
+        opacity: 0;
+    }
+    #menu > .nav-item:hover > .nav-link::before,
+    #menu > .nav-item > .nav-link.show::before{
+        opacity: 1;
+    }
+    #menu > .nav-item.active > .nav-link::before,
+    #menu > .nav-item > .nav-link.active::before{
+        background: linear-gradient(to right, transparent 30%, var(--menu-accent) 30%, var(--menu-accent) 70%, transparent 70%);
+        opacity: 1;
+    }
+    #menu > .nav-item > .dropdown-toggle::after{
+        content: "";
+        display: none;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -1px;
+        height: 1px;
+        margin: 0;
+        border: 0;
+        background: var(--menu-bg);
+    }
+    #menu > .nav-item.dropdown:hover > .dropdown-toggle::after,
+    #menu > .nav-item > .dropdown-toggle.show::after{
+        display: block;
+    }
+    #menu > .dropdown > .dropdown-menu{
+        top: 100%;
+        left: -1px !important;
+        transform: none;
+        margin-top: 0;
+        z-index: 1;
+        border: 1px solid var(--menu-border);
+        border-radius: 0;
+        background: var(--menu-bg);
+        opacity: 1;
+        overflow: visible;
+        max-height: none;
+    }
+    #menu .dropend > .dropdown-menu{
+        border: 1px solid var(--menu-border);
+        border-radius: 0;
+        background: var(--menu-bg);
+    }
+}
+
+/*---------- Barre de recherche ----------*/
+
+.recherche-header{
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px 0;
+}
+
+.recherche-header #searchbox{
+    width: 100%;
+    max-width: 300px;
+}
+
+
+#searchbox form{
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0;
+}
+
+#searchbox .input-search{
+    height: 25px;
+    margin: 0 !important;
+    padding: 0 0 0 10px;
+    border: none;
+    border-radius: 0;
+    background: #272727;
+    color: #FFF;
+    font-size: 13px;
+}
+
+#searchbox .input-search::placeholder{
+    color: #FFF;
+    opacity: 1;
+}
+
+#searchbox .input-search:focus{
+    background: #272727;
+    color: #FFF;
+    box-shadow: inset 0 0 0 1px #E69645;
+}
+
+#searchbox .btn-search, #searchbox .btn-search:hover, #searchbox .btn-search:focus{
+    width: 30px;
+    height: 25px;
+    flex: 0 0 30px;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: #272727 url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3ccircle cx='6.5' cy='6.5' r='4.5' fill='none' stroke='%23FFF' stroke-width='1.8'/%3e%3cpath d='M10 10l4 4' stroke='%23FFF' stroke-width='1.8' stroke-linecap='round'/%3e%3c/svg%3e") no-repeat center / 14px;
+    color: transparent;
+    box-shadow: none;
+}
+
+#searchbox .btn-search:hover{
+    background-color: #000;
+}
+
+#searchbox .btn-search:focus-visible{
+    box-shadow: inset 0 0 0 1px #E69645;
+}
+
+@media screen and (max-width:992px){
+    #searchbox .input-search{
+        right: 30px;
+    }
+}
+
+/*---------- Hero (page d'accueil) ----------*/
+
+.hero{
+    --hero-image: url("interface/supercalculateur.jpg");
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 320px;
+    margin-top: 10px;
+    padding: 40px 30px;
+    background: linear-gradient(rgba(0, 0, 0, .55), rgba(0, 0, 0, .55)), var(--hero-image) center / cover no-repeat;
+    color: #FFF;
+}
+
+.hero-contenu{
+    max-width: 700px;
+}
+
+.hero-titre{
+    margin: 0 0 15px;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.hero-texte{
+    margin: 0 0 25px;
+    font-size: 1.1rem;
+}
+
+.hero-bouton{
+    display: inline-block;
+    padding: 10px 20px;
+    border: 2px solid #E69645;
+    background: #E69645;
+    color: #000;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.hero-bouton:hover, .hero-bouton:focus-visible{
+    background: transparent;
+    color: #FFF;
+    text-decoration: none;
+}
+
+#logo-bandeau {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: #fff;
+    padding: 10px;
+}
+
+#logo-bandeau img {
+    margin: 10px;
+    height: 50px;
+}
+
+@media screen and (max-width: 576px){
+    .hero{
+        min-height: 220px;
+        padding: 25px 15px;
+    }
+    .hero-titre{
+        font-size: 1.4rem;
     }
 }

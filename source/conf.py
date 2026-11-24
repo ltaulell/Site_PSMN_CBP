@@ -16,7 +16,7 @@ author = "PSMN's Staff"
 #extensions = ['sphinxcontrib.newsfeed']
 
 templates_path = ['_templates']
-exclude_patterns = []
+exclude_patterns = ['_build', '_themes', '**/.DS_Store']
 
 language = 'fr'
 

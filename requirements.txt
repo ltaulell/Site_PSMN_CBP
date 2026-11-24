@@ -1,0 +1,3 @@
+# Versions utilisées pour construire le site (Sphinx 9 casse sphinxcontrib-newsfeed)
+sphinx==7.3.7
+sphinxcontrib-newsfeed
