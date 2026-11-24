@@ -19,6 +19,6 @@ help:
 # touch source/Informations/News.rst : Rafraîchir la date de modification du fichier News.rst
 # python build/html/_static/limit_rss_items.py : Générer le fichier rss
 %: Makefile 
-	touch source/Informations/News.rst 
+	#touch source/Informations/News.rst 
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
-	python build/html/_static/limit_rss_items.py 
+	#python build/html/_static/limit_rss_items.py 
